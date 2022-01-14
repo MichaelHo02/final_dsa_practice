@@ -30,19 +30,23 @@ public class CourseList {
 
     public String coursesTaken() {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < courses.size(); i++) {
-            if (courses.get(i).prerequisite.size() == 0) {
-                if (result.length() == 0) {
-                    result.append(courses.get(i).name);
-                } else {
-                    result.append(", ").append(courses.get(i).name);
-                }
-
-                for (int j = 0; j < courses.size(); j++) {
-                    if (i == j) {
-                        continue;
+        int n = 0;
+        while (n < courses.size()) {
+            for (int i = 0; i < courses.size(); i++) {
+                if (courses.get(i).prerequisite.size() == 0) {
+                    n++;
+                    if (result.length() == 0) {
+                        result.append(courses.get(i).name);
+                    } else {
+                        result.append(", ").append(courses.get(i).name);
                     }
-                    courses.get(j).prerequisite.remove(courses.get(i));
+
+                    for (int j = 0; j < courses.size(); j++) {
+                        if (i == j) {
+                            continue;
+                        }
+                        courses.get(j).prerequisite.remove(courses.get(i));
+                    }
                 }
             }
         }
